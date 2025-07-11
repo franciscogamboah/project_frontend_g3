@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Cookies from "js-cookie";
 import Swal from "sweetalert2";
+import logo from "../assets/img/logo.png"; // Usa tu logo gamer
 
 export default function CasesPage() {
   const [form, setForm] = useState({
@@ -44,8 +45,6 @@ export default function CasesPage() {
       closedDt: null,
     };
 
-    console.log("Payload to send:", payload);
-
     try {
       const response = await fetch("https://r36c7jyp0b.execute-api.us-east-1.amazonaws.com/dev/api/cases/create", {
         method: "POST",
@@ -84,41 +83,51 @@ export default function CasesPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 bg-white shadow p-6 rounded">
-      <h2 className="text-xl font-bold mb-4">📝 Crear Reclamo</h2>
-      {status && <p className="mb-4 text-blue-600">{status}</p>}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          name="orderId"
-          value={form.orderId}
-          onChange={handleChange}
-          placeholder="Código de la orden"
-          className="w-full border px-3 py-2 rounded"
-          required
-        />
-        <input
-          name="subject"
-          value={form.subject}
-          onChange={handleChange}
-          placeholder="Asunto del reclamo"
-          className="w-full border px-3 py-2 rounded"
-          required
-        />
-        <textarea
-          name="messageText"
-          value={form.messageText}
-          onChange={handleChange}
-          placeholder="Mensaje del reclamo"
-          className="w-full border px-3 py-2 rounded"
-          required
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-indigo-900">
+      <div className="w-full max-w-xl bg-white/90 p-10 rounded-2xl shadow-2xl border-4 border-indigo-700 relative overflow-hidden">
+        {/* Efecto luz gamer */}
+        <div className="absolute -top-10 -left-10 w-40 h-40 bg-indigo-400 opacity-30 blur-3xl rounded-full z-0"></div>
+        <img src={logo} alt="Logo GameShop" className="mx-auto w-16 mb-4 drop-shadow-lg z-10 relative" />
+        <h2
+          className="text-2xl font-extrabold mb-6 text-center text-indigo-900 drop-shadow"
+          style={{ fontFamily: "Orbitron, Arial, sans-serif" }}
         >
-          Enviar Reclamo
-        </button>
-      </form>
+          📝 Crear Reclamo
+        </h2>
+        {status && <p className="mb-4 text-blue-600 text-center">{status}</p>}
+        <form onSubmit={handleSubmit} className="space-y-4 z-10 relative">
+          <input
+            name="orderId"
+            value={form.orderId}
+            onChange={handleChange}
+            placeholder="Código de la orden"
+            className="w-full border border-indigo-300 px-3 py-2 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+          <input
+            name="subject"
+            value={form.subject}
+            onChange={handleChange}
+            placeholder="Asunto del reclamo"
+            className="w-full border border-indigo-300 px-3 py-2 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+          <textarea
+            name="messageText"
+            value={form.messageText}
+            onChange={handleChange}
+            placeholder="Mensaje del reclamo"
+            className="w-full border border-indigo-300 px-3 py-2 rounded bg-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full py-2 mt-4 rounded bg-gradient-to-r from-pink-500 to-indigo-600 text-white font-bold text-lg shadow-md hover:from-yellow-400 hover:to-pink-600 hover:shadow-xl transition-all duration-200 outline-none"
+          >
+            Enviar Reclamo
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
