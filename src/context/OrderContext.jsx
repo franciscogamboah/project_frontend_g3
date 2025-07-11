@@ -62,14 +62,24 @@ export function OrderProvider({ children }) {
       });
 
       if (!res.ok) throw new Error("Error al procesar la orden");
-      const data = await res.json();
+
+      console.log("Orden creada exitosamente:", res);
+
+      // Manejo seguro de respuesta
+      let data = {};
+      try {
+        data = await res.json();
+      } catch {
+        data = {};
+      }
+
       Swal.fire({
         icon: "success",
         title: "¡Orden registrada!",
         text: "Tu orden se ha procesado correctamente.",
         confirmButtonColor: "#3085d6"
       }).then(() => {
-        onSuccess(data?.orderId || "ORD-000123");
+        onSuccess(data?.Data?.OrderId || "ORD-000123");
       });
     } catch (err) {
       Swal.fire({
@@ -77,7 +87,7 @@ export function OrderProvider({ children }) {
         title: "Error",
         text: err.message || "Hubo un problema al registrar la orden.",
       });
-      onError(err);
+      onError?.(err);
     }
   };
 

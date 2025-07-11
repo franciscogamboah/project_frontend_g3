@@ -10,7 +10,15 @@ export default function CatalogPage() {
   const { products, loading, error } = useCatalog();
 
   const handleAddToCart = (game) => {
-    addToCart({ id: game.sku_id, ...game });
+    // Calcular la imagen igual que en el render
+    const localImg = getImageBySkuId(game.sku_id);
+    const imageSrc =
+      localImg ||
+      game.image ||
+      "https://via.placeholder.com/400x200.png?text=Imagen+no+disponible";
+    
+    addToCart({ id: game.sku_id, ...game, image: imageSrc }); // <-- asegura que pase la imagen
+
     Swal.fire({
       icon: "success",
       title: "¡Agregado!",
@@ -19,6 +27,7 @@ export default function CatalogPage() {
       timer: 1200,
     });
   };
+
 
   return (
     <div className="p-6">

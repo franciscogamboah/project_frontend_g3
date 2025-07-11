@@ -67,7 +67,7 @@ export default function OrderPage() {
 
         <div className="flex justify-center gap-4 mt-4">
           <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">
-            Guardar Compra
+            Realizar Pago
           </button>
           <button type="button" onClick={() => navigate("/catalog")} className="bg-red-400 text-white py-2 px-4 rounded hover:bg-gray-500">
             Cancelar
